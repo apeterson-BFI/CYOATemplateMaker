@@ -1,35 +1,56 @@
 ﻿Creating a template file:
 
-The template file consists of an html section, enhanced with template parameters surrounded by %s, and a choices section, which contains lines of plaintext with a corresponding template file to navigate to, and variable statements which can create or modified variables.
+The template file consists of a prestart section, an html section, enhanced with template parameters surrounded by %s, and a choices section, which contains lines of plaintext with a corresponding template file to navigate to, and variable statements which can create or modified variables.
 
 Overall structure:
 
+PRESTART
+
+TEST varname, threshold, pass page, fail page
+LOCAL refers to the current page in pass page, fail page. 
+
+Multiple TESTS may be run. Each test is only run if all of the ones above if went to LOCAL.
+
+If a test goes to local and there are no more tests beneath it, then HTML section can start
+
 HTML
-...
-html
-...
 
-CHOICES
-text ; relative filename ; variable action : [variable action : ...]
+Html code is here.
 
+Anything with % is an escape
 
-Escapes
-
-In the choices text section, ;; can be used to produce a literal ;.
-
-VARIABLES
-
-variables have a name and are all decimal type values
-
-HTML template escapes
-
-%% : emit a literal %
+%% is a literal %
 
 %var [varname:fmt]% : emit the value of literal varname with the numeric formatting specifier fmt.
 (eg. %var money:$0.00%)
 
 %TEST varname, threshold, PASS <HTML>, FAIL <HTML>%
 
-template escapes can be nested inside of TEST's pass and fail sections
 
- 
+CHOICES
+
+Each line is a choice, there must be at least one choice and can be up to 5.
+
+A choice can have a test block before it starts. The choice won't be offered if the test fails. 
+There must be at least one choice without a test qualifier.
+
+[TEST varname, threshold]; text; filename (relative); ACTION ; [ACTION]...
+
+
+ACTION
+
+SET varname, value : creates a variable and assigns it a value, or assigns the value to the existing variable. SET must be used to assign a variable before any other actions can be used with that variable.
+
+ADD varname, value : varname = varname + value
+SUB varname, value : varname = varname - value
+MULT varname, value : varname = varname * value
+DIV varname, value : varname = varname / value
+POW varname, value : varname = varname ^ value
+SIN varname : varname = SIN(varname)
+SUB2 varname, value : varname = value - varname
+DIV2 varname, value : varname = value / varname
+POW2 varname, value : varname = value ^ varname
+
+FILE EXTENSION
+
+Template files should have an ADV extension

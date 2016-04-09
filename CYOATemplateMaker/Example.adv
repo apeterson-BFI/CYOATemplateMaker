@@ -1,0 +1,19 @@
+﻿PRESTART
+TEST greentrust, 8, LOCAL, DeepForestChallenge.adv
+
+HTML
+<html>
+<head>
+<title>Deep in the Forest</title>
+</head>
+<body>
+<p>You've reached the forest deep without being told to leave.</p>
+</body>
+</html>
+
+CHOICES
+TEST greentrust, 12; Ask to see the Druid; DeepForestDruid.adv; ADD boldness, 2
+                     Meditate in the deep forest; Example.adv; ADD greentrust, 2
+					 Look for kindling to start a fire; DeepForestAnger.adv; SET greentrust, 0; ADD boldness, 8
+					 Yell "Anyone there?"; DeepForestHears.adv
+					  
