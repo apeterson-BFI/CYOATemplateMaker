@@ -1,0 +1,35 @@
+﻿Creating a template file:
+
+The template file consists of an html section, enhanced with template parameters surrounded by %s, and a choices section, which contains lines of plaintext with a corresponding template file to navigate to, and variable statements which can create or modified variables.
+
+Overall structure:
+
+HTML
+...
+html
+...
+
+CHOICES
+text ; relative filename ; variable action : [variable action : ...]
+
+
+Escapes
+
+In the choices text section, ;; can be used to produce a literal ;.
+
+VARIABLES
+
+variables have a name and are all decimal type values
+
+HTML template escapes
+
+%% : emit a literal %
+
+%var [varname:fmt]% : emit the value of literal varname with the numeric formatting specifier fmt.
+(eg. %var money:$0.00%)
+
+%TEST varname, threshold, PASS <HTML>, FAIL <HTML>%
+
+template escapes can be nested inside of TEST's pass and fail sections
+
+ 
